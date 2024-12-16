@@ -1,5 +1,8 @@
-
+// call functions :
 dragDrop();
+searchAoutName();
+filterDropDown();
+
 
 let updatesStatus = [];
 
@@ -84,20 +87,13 @@ function dragDrop(){
           
           // functio send update to php : 
           getUpdatesArray( boxDrop.id , boxDrop.dataset.status , dragingElement.id , dragingElement.dataset.status );
-  
-          
-          sendUpdatesToPhp();
-          // setTimeout(() => {
             
-          // }, 5000);
+          sendUpdatesToPhp();
+
           
         }
 
-
-
       }
-
-
 
       boxDrop.classList.remove('box-green');
       dragingElement.classList.remove('box-green');
@@ -107,8 +103,7 @@ function dragDrop(){
 
       boxDrop.classList.remove('dragin-now');
       dragingElement.classList.remove('dragin-now');
-      
-      
+            
     });
 
   });
@@ -137,8 +132,71 @@ function sendUpdatesToPhp() {
       .catch((error) => {
           console.error('Fetch Error:', error);
       });
-
-
 }
 
+
+
+
+
+
+
+// search about player :
+function searchAoutName() {
+  const inputSearch = document.getElementById('search-dropdown');
+
+  console.log(inputSearch);
+  
+  inputSearch.addEventListener('input', ()=>{
+    const playersZone = document.getElementById('side-zone');
+    const cards = playersZone.querySelectorAll('.side-card');
+    
+    cards.forEach(element => {
+      const cardPlayerName = element.querySelector('.name-empty').textContent.trim().toLowerCase();
+
+      if ( cardPlayerName.includes(inputSearch.value.toLowerCase()) ) {        
+        element.style.display = 'block';
+      } else {
+        element.style.display = 'none';
+      
+      }
+    });
+  });
+}
+
+
+
+// filter by position:
+// dropdown filter : 
+function filterDropDown() {
+  const filterBtnChoice = document.getElementById('dropdown-button');
+  const choiceBtn = document.getElementById('dropdown').querySelectorAll('button');
+  choiceBtn.forEach(element => {
+    element.addEventListener('click', ()=>{
+      const playersZone = document.getElementById('side-zone');
+      const cards = playersZone.querySelectorAll('.side-card');
+            
+      const yourChoice = element.textContent;
+      
+      filterBtnChoice.firstChild.textContent = yourChoice;
+      
+
+      cards.forEach(element => {
+
+        const cardPlayerName = element.dataset.pos;
+        if (yourChoice == 'ALL') {
+          element.style.display = 'block';
+        }else if (yourChoice == cardPlayerName) {
+          
+          element.style.display = 'block';
+        } else {
+          element.style.display = 'none';
+        
+        }
+      });
+
+      filterBtnChoice.click();
+
+    });
+  });
+}
 
