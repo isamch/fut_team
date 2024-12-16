@@ -23,15 +23,16 @@ if (!$conn) {
 //       }
 //     }
 //   }
-  
+
 
 $data = json_decode(file_get_contents('php://input'), true);
-
 // echo json_encode($data);
 
-if ( isset($data['updates']) && is_array($data['updates'])) {
+if (isset($data['updates']) && is_array($data['updates'])) {
+
 
     $updates = $data['updates'];
+
 
     foreach ($updates as $update) {
 
@@ -47,24 +48,20 @@ if ( isset($data['updates']) && is_array($data['updates'])) {
         // Update player 2's status
         $query2 = "UPDATE players SET status = '$cardPlayer2_status' WHERE id = $cardPlayer2_id";
 
-    
+
         if (!mysqli_query($conn, $query1) || !mysqli_query($conn, $query2)) {
             echo json_encode(['success' => false, 'error' => 'Database update failed']);
-            exit; 
+            exit;
         }
-
     }
 
 
     echo json_encode(['success' => true]);
-
-}else{
-   echo json_encode(['success' => false, 'error' => 'No valid data received']);
-
+} else {
+    echo json_encode(['success' => false, 'error' => 'No valid data received']);
 }
 
 
 
 mysqli_close($conn);
 exit;
-?>

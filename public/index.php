@@ -4,7 +4,18 @@
 
   $players = [];
 
-  $query = "SELECT id, name, country, position, status FROM players";
+  // $query = "SELECT id, name, country, position, status FROM players";
+
+  $query = "SELECT players.id, name, photo, position, rating, status, logo_url, flag_url,
+              diving, handling, kicking, reflexes, speed, positioning, 
+              pace, shooting, passing, dribbling, defending, physical
+              FROM players
+              LEFT JOIN goolkeeper ON goolkeeper.id_player = players.id
+              LEFT JOIN normal_player ON normal_player.id_player = players.id
+              LEFT JOIN clubs ON clubs.id = players.club_id
+              LEFT JOIN nationality ON nationality.id = players.nationality_id;";
+
+
   $result = mysqli_query($conn, $query);
 
   if ($result) {
@@ -16,16 +27,19 @@
   }
 
 
-  foreach ($players as $player) {
-    if ($player["position"] == 'gk') {
-      echo "ID: " . $player["id"] . "<br>";
-      echo "Name: " . $player["name"] . "<br>";
-      echo "Country: " . $player["country"] . "<br>";
-      echo "Country: " . $player["position"] . "<br>";
-      echo "Status: " . $player["status"] . "<br>";
-      echo "<hr>";
-    }
-  }
+  // print_r($players[0]);
+
+  
+  // foreach ($players as $player) {
+  //     // echo "ID: " . $player["id"] . "<br>";
+  //     echo "Name: " . $player['name'] . "<br>";
+  //     echo "Country: " . $player['handling'] . "<br>";
+  //     // echo "Country: " . $player["position"] . "<br>";
+  //     // echo "Status: " . $player["status"] . "<br>";
+
+
+  //     echo "<hr>";
+  // }
 
 
 ?>
@@ -82,31 +96,31 @@
         
 
         <?php foreach($players as $player): ?>
-          <?php if($player["status"] == 'substitute'): ?>
+          <?php if($player["status"] == 'substitutes'): ?>
             <?php
 
             if ($player["position"] == "GK") {
 
               $playerstats = [
-                'DIV' => 11,
-                'HAN' => 11,
-                'KIC' => 11,
-                'REF' => 11,
-                'SPD' => 11,
-                'POS' => 11
-            ];
+                'DIV' => $player['diving'],
+                'HAN' => $player['handling'],
+                'KIC' => $player['kicking'],
+                'REF' => $player['reflexes'],
+                'SPD' => $player['speed'],
+                'POS' => $player['positioning']
+              ];
 
 
             }else{
 
              
               $playerstats = [
-                'PAC' => 11,
-                'SHO' => 11,
-                'PAS' => 11,
-                'DRI' => 11,
-                'DEF' => 11,
-                'PHY' => 11
+                'PAC' => $player['pace'],
+                'SHO' => $player['shooting'],
+                'PAS' => $player['passing'],
+                'DRI' => $player['dribbling'],
+                'DEF' => $player['defending'],
+                'PHY' => $player['physical']
               ];
 
             }
@@ -119,10 +133,10 @@
                 <!-- inside card info -->
                 <div class="card-info-empty">
                     <!-- player-img-empty -->           
-                    <img src="https://cdn.sofifa.net/players/209/981/25_120.png" alt="" class="player-img-empty" draggable="false">
+                    <img src="<?= htmlspecialchars($player["photo"]) ?>" alt="" class="player-img-empty" draggable="false">
                     <!-- rating -->
                     <div class="rating-empty">
-                      <p>99</p>
+                      <p><?= htmlspecialchars($player["rating"]) ?></p>
                       <span><?= htmlspecialchars($player['position'])?></span>
                     </div>
                     <div class="info-down-emprt">
@@ -141,8 +155,8 @@
                         </div>
                         <!-- country -->
                         <div class="countr-team-empty">
-                          <img src="https://cdn.sofifa.net/flags/ma.png" alt="">
-                          <img src="https://cdn.sofifa.net/meta/team/7011/120.png" alt="">
+                          <img src="<?= htmlspecialchars($player["flag_url"]) ?>" alt="">
+                          <img src="<?= htmlspecialchars($player["logo_url"]) ?>" alt="">
                         </div>
                     </div>
                 </div>
@@ -196,7 +210,7 @@
         ?>
 
         <?php foreach($players as $player): ?>
-          <?php if($player["status"] == 'official'): ?>
+          <?php if($player["status"] == 'main'): ?>
             <?php
             $class = "empty-card p-card team-card drop-zone ";
 
@@ -204,13 +218,13 @@
               $class .= "empty-card-1"; 
 
               $playerstats = [
-                'DIV' => 65,
-                'HAN' => 95,
-                'KIC' => 95,
-                'REF' => 95,
-                'SPD' => 95,
-                'POS' => 95
-            ];
+                'DIV' => $player['diving'],
+                'HAN' => $player['handling'],
+                'KIC' => $player['kicking'],
+                'REF' => $player['reflexes'],
+                'SPD' => $player['speed'],
+                'POS' => $player['positioning']
+              ];
 
 
             }else{
@@ -235,12 +249,12 @@
 
 
               $playerstats = [
-                'PAC' => 15,
-                'SHO' => 95,
-                'PAS' => 95,
-                'DRI' => 95,
-                'DEF' => 95,
-                'PHY' => 88
+                'PAC' => $player['pace'],
+                'SHO' => $player['shooting'],
+                'PAS' => $player['passing'],
+                'DRI' => $player['dribbling'],
+                'DEF' => $player['defending'],
+                'PHY' => $player['physical']
               ];
 
             }
@@ -253,10 +267,10 @@
                 <!-- inside card info -->
                 <div class="card-info-empty">
                     <!-- player-img-empty -->           
-                    <img src="https://cdn.sofifa.net/players/209/981/25_120.png" alt="" class="player-img-empty" draggable="false">
+                    <img src="<?= htmlspecialchars($player["photo"]) ?>" alt="" class="player-img-empty" draggable="false">
                     <!-- rating -->
                     <div class="rating-empty">
-                      <p>10</p>
+                      <p><?= htmlspecialchars($player["rating"]) ?></p>
                       <span><?= htmlspecialchars($player['position'])?></span>
                     </div>
                     <div class="info-down-emprt">
@@ -275,8 +289,8 @@
                         </div>
                         <!-- country -->
                         <div class="countr-team-empty">
-                          <img src="https://cdn.sofifa.net/flags/ma.png" alt="">
-                          <img src="https://cdn.sofifa.net/meta/team/7011/120.png" alt="">
+                          <img src="<?= htmlspecialchars($player["flag_url"]) ?>" alt="">
+                          <img src="<?= htmlspecialchars($player["logo_url"]) ?>" alt="">
                         </div>
                     </div>
                 </div>
@@ -311,32 +325,12 @@
       <div class="filter-search m-2 w-full px-5">
 
 
-        <div class="max-w-lg mx-auto">
+        <div  class="max-w-lg mx-auto" style="min-width: 250px;">
           <div class="flex items-center">
 
-            <div id="drop-delet"
-              class="drop-zone add-player-btn flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-red-700 border border-gray-300 rounded-s-lg hover:bg-red-900 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-red-900 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
-              <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M9 3a1 1 0 00-1 1v1H4a1 1 0 100 2h16a1 1 0 100-2h-4V4a1 1 0 00-1-1H9zm10 5H5v12a2 2 0 002 2h10a2 2 0 002-2V8zm-7 3a1 1 0 012 0v6a1 1 0 11-2 0v-6zm-4 0a1 1 0 012 0v6a1 1 0 11-2 0v-6zm8 0a1 1 0 012 0v6a1 1 0 11-2 0v-6z">
-                </path>
-              </svg>
-            </div>
-
-            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" id="add-new-card"
-              class="add-player-btn flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-orange-500 border border-gray-300 hover:bg-gray-200 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600">
-              <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                  clip-rule="evenodd"></path>
-              </svg>
-              Add
-            </button>
 
             <button id="dropdown-button" data-dropdown-toggle="dropdown"
-              class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 hover:bg-gray-200 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
+              class="flex-shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium rounded-s-lg text-center text-gray-900 bg-gray-100 border border-gray-300 hover:bg-gray-200 focus:outline-none focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600"
               type="button">All
               <svg class="w-2.5 h-2.5 ms-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                 viewBox="0 0 10 6">
@@ -414,25 +408,25 @@
             if ($player["position"] == "GK") {
 
               $playerstats = [
-                'DIV' => 11,
-                'HAN' => 11,
-                'KIC' => 11,
-                'REF' => 11,
-                'SPD' => 11,
-                'POS' => 11
-            ];
+                'DIV' => $player['diving'],
+                'HAN' => $player['handling'],
+                'KIC' => $player['kicking'],
+                'REF' => $player['reflexes'],
+                'SPD' => $player['speed'],
+                'POS' => $player['positioning']
+              ];
 
 
             }else{
 
              
               $playerstats = [
-                'PAC' => 11,
-                'SHO' => 11,
-                'PAS' => 11,
-                'DRI' => 11,
-                'DEF' => 11,
-                'PHY' => 11
+                'PAC' => $player['pace'],
+                'SHO' => $player['shooting'],
+                'PAS' => $player['passing'],
+                'DRI' => $player['dribbling'],
+                'DEF' => $player['defending'],
+                'PHY' => $player['physical']
               ];
 
             }
@@ -445,10 +439,10 @@
                 <!-- inside card info -->
                 <div class="card-info-empty">
                     <!-- player-img-empty -->           
-                    <img src="https://cdn.sofifa.net/players/209/981/25_120.png" alt="" class="player-img-empty" draggable="false">
+                    <img src="<?= htmlspecialchars($player["photo"]) ?>" alt="" class="player-img-empty" draggable="false">
                     <!-- rating -->
                     <div class="rating-empty">
-                      <p>99</p>
+                      <p><?= htmlspecialchars($player["rating"]) ?></p>
                       <span><?= htmlspecialchars($player['position'])?></span>
                     </div>
                     <div class="info-down-emprt">
@@ -467,8 +461,8 @@
                         </div>
                         <!-- country -->
                         <div class="countr-team-empty">
-                          <img src="https://cdn.sofifa.net/flags/ma.png" alt="">
-                          <img src="https://cdn.sofifa.net/meta/team/7011/120.png" alt="">
+                          <img src="<?= htmlspecialchars($player["flag_url"]) ?>" alt="">
+                          <img src="<?= htmlspecialchars($player["logo_url"]) ?>" alt="">
                         </div>
                     </div>
                 </div>

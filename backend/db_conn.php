@@ -3,7 +3,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$dbname = "test_playears";
+$dbname = "ic_fut_team";
 
 $conn = mysqli_connect($host, $user, $password, $dbname);
 

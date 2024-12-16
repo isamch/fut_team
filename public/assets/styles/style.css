@@ -17,6 +17,7 @@ body {
   background-color: var(--backgroun-color);
 }
 
+
 .container-native {
   width: 100% !important;
   height: 100vh;
