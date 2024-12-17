@@ -2,6 +2,7 @@
 dragDrop();
 searchAoutName();
 filterDropDown();
+changeFormation();
 
 
 let updatesStatus = [];
@@ -143,8 +144,6 @@ function sendUpdatesToPhp() {
 // search about player :
 function searchAoutName() {
   const inputSearch = document.getElementById('search-dropdown');
-
-  console.log(inputSearch);
   
   inputSearch.addEventListener('input', ()=>{
     const playersZone = document.getElementById('side-zone');
@@ -199,4 +198,46 @@ function filterDropDown() {
     });
   });
 }
+
+
+
+
+
+
+
+// change formation team:
+// choose options :
+
+function changeFormation() {
+  const optionFormation = document.getElementById('teamformation');
+  
+  optionFormation.addEventListener('change', () => {
+    
+    if (optionFormation.value == "442") {
+      const parTeam = document.getElementById('team-zone');
+      const allCardTeamFormation = parTeam.querySelectorAll('.empty-card');
+
+      allCardTeamFormation.forEach(element => {
+        element.classList.add('second-plan');
+        
+      });
+
+    }
+    
+    if (optionFormation.value == "433") {
+      
+      const parTeam = document.getElementById('team-zone');
+      const allCardTeamFormation = parTeam.querySelectorAll('.empty-card');
+
+      allCardTeamFormation.forEach(element => {
+        element.classList.remove('second-plan');
+        
+      });
+
+    }
+      
+
+  });
+  
+};
 
