@@ -4,7 +4,6 @@
 
   $players = [];
 
-  // $query = "SELECT id, name, country, position, status FROM players";
 
   $query = "SELECT players.id, name, photo, position, rating, status, logo_url, flag_url,
               diving, handling, kicking, reflexes, speed, positioning, 
