@@ -2,6 +2,7 @@
 
   include '../../backend/db_conn.php';
 
+
   include './pagination.php';
 
   $players = [];
@@ -29,8 +30,9 @@
       echo "error fetch : " . mysqli_error($conn);
   }
 
-?>
 
+
+?>
 
 
 
@@ -58,7 +60,7 @@
 
   <!-- dashboard -->
   <div class="dashboard-status">
-    <div class=" flex justify-center items-center h-16 bg-[#123] shadow-md mb-3">
+    <div class=" flex justify-center items-center h-16 bg-[#123] shadow-md mb-3 rounded">
       <a href="../index.php" class="block">
       <img src="../assets/images/logo/banner.png" alt="Logo" class="max-h-12 max-w-full object-contain">
       </a>
@@ -105,9 +107,8 @@
       <p>Players</p>
       <img src="../assets/images/icon/icons8-users-50.png" alt="->-">
     </div>
+
     <!-- table -->
-
-
     <div class="table-container">
       <table>
         <thead>
@@ -164,6 +165,17 @@
             }
           ?>
           <tr>
+            <td>
+
+              <a href="update_page.php?id=<?= htmlspecialchars($player['id'])?>" class="inline-flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
+                <i class="fas fa-edit text-blue-700 group-hover:text-white"></i>
+              </a>
+
+              <a href="delete_page.php?id=<?= htmlspecialchars($player['id'])?>" class="group inline-flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                <i class="fas fa-trash text-red-700 group-hover:text-white"></i>
+              </a>
+
+            </td>
             <td><?= htmlspecialchars($player['id'])?></td>
             <td><?= htmlspecialchars($player['name'])?></td>
             <td><?= htmlspecialchars($player['photo'])?></td>
@@ -176,17 +188,6 @@
               <td><?= htmlspecialchars($stats)?></td>
             <?php endforeach ?>
       
-            <td>
-
-              <a href="#" class="inline-flex items-center text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">
-                <i class="fas fa-edit text-blue-700 group-hover:text-white"></i>
-              </a>
-
-              <a href="#" class="group inline-flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                <i class="fas fa-trash text-red-700 group-hover:text-white"></i>
-              </a>
-
-            </td>
           </tr>
         <?php endforeach ?>
 
@@ -194,11 +195,24 @@
       </table>
     </div>
 
-
+    <!-- page number -->
+    <div class="flex flex-col items-center mt-5">
+      <!-- Help text -->
+      <span class="text-sm text-gray-500 dark:text-gray-400">
+        Showing Page <span class="font-semibold text-white dark:text-white">
+          <?php 
+            if (isset($_GET['page-nbr'])) {
+              echo $_GET['page-nbr'];
+            }else{
+              echo 1;
+            }
+          ?>
+          </span> of <span class="font-semibold text-white dark:text-white"><?= htmlspecialchars($page_number) ?></span>
+      </span>
+    </div>
     <!-- pagination -->
     <nav aria-label="Page navigation example " class="mt-5 mx-auto">
       <ul class="inline-flex text-base h-10">
-        
         <!-- last -->
         <li class="border-r border-gray-900">
           <a href="?page-nbr=1" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-white bg-[#123] rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
@@ -273,12 +287,7 @@
     </nav>
 
 
-
-
   </div>
-
-
-
 
 
 </body>
