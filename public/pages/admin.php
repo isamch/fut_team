@@ -1,5 +1,11 @@
 <?php 
 
+  session_start();
+
+  if (!empty($_SESSION['error_message'])) {
+    $ses = $_SESSION['error_message'];
+  }
+  
   include '../../backend/db_conn.php';
 
 
@@ -32,6 +38,8 @@
 
 
 
+  
+
 ?>
 
 
@@ -51,11 +59,12 @@
 
 
   <script src="https://cdn.tailwindcss.com"></script>
-
+  
 
 </head>
 
 <body>
+
 
 
   <!-- dashboard -->
@@ -289,6 +298,32 @@
 
   </div>
 
+
+
+
+  <!-- alerts -->
+
+    <!-- Danger Alert Popup -->
+    <div id="alert" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+      <div class="bg-red-500 border border-red-400 text-red-800 px-6 py-4 rounded-lg shadow-lg w-full max-w-sm relative">
+        <strong class="font-bold">Danger!</strong>
+        <span class="block sm:inline"><?php echo $ses ?></span>
+        <!-- Close Button -->
+        <button 
+          id="close-btn" 
+          class="absolute top-2 right-2 text-red-900 hover:text-red-600 font-bold focus:outline-none"
+        >
+          &times;
+        </button>
+      </div>
+    </div>
+  
+    <script>
+      document.getElementById('close-btn').addEventListener('click', () => {
+        document.getElementById('alert').style.display = 'none';
+      });
+    </script>
+    <?php unset($_SESSION['error_message']); ?>
 
 </body>
 

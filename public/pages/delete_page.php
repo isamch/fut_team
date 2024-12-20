@@ -38,11 +38,17 @@ if (isset($_GET['id']) && isset($_GET['status']) && isset($_GET['pos'])) {
     
     header('location:admin.php');
 
+    exit();
     
 
   }else{
     
     echo 'you cant delete main player';
+    $_SESSION['error_message'] = 'try to delete main player';
+
+    header('location:admin.php');
+
+    exit();
 
   }
     
