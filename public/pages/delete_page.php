@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 
 include '../../backend/db_conn.php';
 
@@ -36,15 +37,14 @@ if (isset($_GET['id']) && isset($_GET['status']) && isset($_GET['pos'])) {
       
     }
     
+    $_SESSION['success_del_msg'] = 'player has been successfully deleted.';
     header('location:admin.php');
 
     exit();
     
 
   }else{
-    
-    echo 'you cant delete main player';
-    $_SESSION['error_message'] = 'try to delete main player';
+    $_SESSION['Failed_del_msg'] = 'Failed to delete the main player.';
 
     header('location:admin.php');
 
