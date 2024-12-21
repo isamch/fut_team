@@ -81,26 +81,29 @@
     <!-- panels -->
     <div class="panels mt-2">
       <div class="panel-dashboard">
-        <img src="../assets/images/icon/icons8-users-50.png" alt>
+        <!-- <img src="../assets/images/icon/icons8-users-50.png" alt> -->
+        <i class="fa-solid fa-user text-4xl"></i>
         <div>
           <p>Players</p>
-          <span>100</span>
+          <span><?= htmlspecialchars($row_number) ?></span>
         </div>
       </div>
 
       <div class="panel-dashboard">
-        <img src="../assets/images/icon/icons8-felt-pens-60.png" alt>
+        <!-- <img src="../assets/images/icon/icons8-felt-pens-60.png" alt> -->
+        <i class="fa-solid fa-people-group text-4xl"></i>
         <div>
           <p>Team</p>
-          <span>35</span>
+          <span><?= htmlspecialchars($number_team) ?></span>
         </div>
       </div>
 
       <div class="panel-dashboard">
-        <img src="../assets/images/icon/icons8-products-80.png" alt>
+        <!-- <img src="../assets/images/icon/icons8-products-80.png" alt> -->
+        <i class="fa-solid fa-flag text-4xl"></i>
         <div>
           <p>Nationality</p>
-          <span>325</span>
+          <span><?= htmlspecialchars($nationality_team) ?></span>
         </div>
       </div>
 
@@ -119,6 +122,7 @@
       <table>
         <thead>
           <tr>
+            <th>Action</th>
             <th>ID</th>
             <th>Name</th>
             <th>photo</th>
@@ -132,7 +136,6 @@
             <th>ref-dri</th>
             <th>spd-def</th>
             <th>pos-phy</th>
-            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -184,15 +187,19 @@
             </td>
             <td><?= htmlspecialchars($player['id'])?></td>
             <td><?= htmlspecialchars($player['name'])?></td>
-            <td><?= htmlspecialchars($player['photo'])?></td>
+            <td>
+              <img src="<?= htmlspecialchars($player['photo']) ?>" alt="Player Photo" class="h-12 w-12 object-cover rounded-full mx-auto" />
+            </td>
             <td><?= htmlspecialchars($player['position'])?></td>
             <td><?= htmlspecialchars($player['rating'])?></td>
             <td><?= htmlspecialchars($player['name_clubs'])?></td>
             <td><?= htmlspecialchars($player['name_nationality'])?></td>
-
+            
             <?php foreach($playerstats as $stats): ?>
               <td><?= htmlspecialchars($stats)?></td>
             <?php endforeach ?>
+            
+
       
           </tr>
         <?php endforeach ?>
@@ -325,7 +332,6 @@
     <?php endif; ?>
 
     <?php if(isset($_SESSION['success_del_msg'])): ?>
-
 
       <div id="alert" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
       <div class="bg-green-500 border border-green-400 text-green-800 px-6 py-4 rounded-lg shadow-lg w-full max-w-sm relative">
