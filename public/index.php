@@ -26,20 +26,6 @@
   }
 
 
-  // print_r($players[0]);
-
-  
-  // foreach ($players as $player) {
-  //     // echo "ID: " . $player["id"] . "<br>";
-  //     echo "Name: " . $player['name'] . "<br>";
-  //     echo "Country: " . $player['handling'] . "<br>";
-  //     // echo "Country: " . $player["position"] . "<br>";
-  //     // echo "Status: " . $player["status"] . "<br>";
-
-
-  //     echo "<hr>";
-  // }
-
 
 ?>
 

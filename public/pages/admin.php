@@ -49,6 +49,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard</title>
 
+  <link rel="shortcut icon" href="../assets//images//logo//favicon.png" type="image/x-icon">
   <!-- link -->
   <link rel="stylesheet" href="../assets/styles/style-dash.css">
   <!-- link icons -->
@@ -114,7 +115,10 @@
     <!-- table title -->
     <div class="head-dash">
       <p>Players</p>
-      <img src="../assets/images/icon/icons8-users-50.png" alt="->-">
+      <!-- <img src="../assets/images/icon/icons8-users-50.png" alt="->-"> -->
+      <a href="add_player.php">
+        <i class="fa-solid fa-user-plus"></i>
+      </a>
     </div>
 
     <!-- table -->
@@ -313,7 +317,6 @@
         <div class="bg-red-500 border border-red-400 text-red-800 px-6 py-4 rounded-lg shadow-lg w-full max-w-sm relative">
           <strong class="font-bold">Warning!</strong>
           <span class="block sm:inline"><?= htmlspecialchars($_SESSION['Failed_del_msg']) ?></span>
-          <!-- Close Button -->
           <button 
             id="close-btn" 
             class="absolute top-2 right-2 text-red-900 hover:text-red-600 font-bold focus:outline-none"
@@ -331,13 +334,15 @@
     <?php unset($_SESSION['Failed_del_msg']); ?>    
     <?php endif; ?>
 
+
+
+    <!-- secsses del -->
     <?php if(isset($_SESSION['success_del_msg'])): ?>
 
       <div id="alert" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
       <div class="bg-green-500 border border-green-400 text-green-800 px-6 py-4 rounded-lg shadow-lg w-full max-w-sm relative">
         <strong class="font-bold">Success!</strong>
         <span class="block sm:inline"><?= htmlspecialchars($_SESSION['success_del_msg']) ?></span>
-        <!-- Close Button -->
         <button 
           id="close-btn" 
           class="absolute top-2 right-2 text-green-900 hover:text-green-600 font-bold focus:outline-none"
@@ -355,6 +360,33 @@
 
   <?php unset($_SESSION['success_del_msg']); ?>    
   <?php endif; ?>
+
+
+  
+  <?php if(isset($_SESSION['success_add_msg'])): ?>
+
+    <div id="alert" class="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50">
+    <div class="bg-green-500 border border-green-400 text-green-800 px-6 py-4 rounded-lg shadow-lg w-full max-w-sm relative">
+      <strong class="font-bold">Success!</strong>
+      <span class="block sm:inline"><?= htmlspecialchars($_SESSION['success_add_msg']) ?></span>
+      <button 
+        id="close-btn" 
+        class="absolute top-2 right-2 text-green-900 hover:text-green-600 font-bold focus:outline-none"
+      >
+        &times;
+      </button>
+    </div>
+    </div>
+
+    <script>
+    document.getElementById('close-btn').addEventListener('click', () => {
+      document.getElementById('alert').style.display = 'none';
+    });
+    </script>
+
+    <?php unset($_SESSION['success_add_msg']); ?>    
+  <?php endif; ?>
+
 
 </body>
 
