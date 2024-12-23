@@ -145,7 +145,7 @@
           </div>
 
           <div class="relative z-0 w-full group">
-            <input type="text" name="photo_url" id="photo_url" pattern="^https?:\/\/[^\s\/$.?#].[^\s]*\.(jpg|jpeg|png|gif)$" title="Enter a valid Photo URL"
+            <input type="text" name="photo_url" id="photo_url"
                   class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer" 
                   placeholder=" " required/>
             <label for="photo_url" 

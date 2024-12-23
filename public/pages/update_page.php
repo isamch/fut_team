@@ -155,11 +155,11 @@
         <div class="flex flex-col gap-5">
         
           <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="f_name" id="floating_first_name" pattern="^[A-Za-z]+(?:\s[A-Za-z]+)+$" title="Enter a valide name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer" placeholder=" " required value="<?= htmlspecialchars($row['name']) ?>" />
+            <input type="text" name="f_name" id="floating_first_name" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer" placeholder=" " required value="<?= htmlspecialchars($row['name']) ?>" />
             <label for="f_name" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full name</label>
           </div>
           <div class="relative z-0 w-full mb-5 group">
-            <input type="text" name="photo_url" id="floating_last_name" pattern="^https?:\/\/[^\s\/$.?#].[^\s]*\.(jpg|jpeg|png|gif)$" title="Enter a valid Photo URL" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer" placeholder=" " required value="<?= htmlspecialchars($row['photo']) ?>" />
+            <input type="text" name="photo_url" id="floating_last_name" pattern="^https?:\/\/\S+\.(jpg|jpeg|png|gif)$" title="Enter a valid Photo URL" class="block py-2.5 px-0 w-full text-sm text-white bg-transparent border-0 border-b-2 border-gray-600 appearance-none focus:outline-none focus:ring-0 focus:border-blue-500 peer" placeholder=" " required value="<?= htmlspecialchars($row['photo']) ?>" />
             <label for="photo_url" class="absolute text-sm text-white duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Photo Url</label>
           </div>
         </div>
